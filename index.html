@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>国际物流货物分类参考表 | 普货·敏货·特货·禁运</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f0f4f8;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Helvetica, sans-serif;
+            padding: 2rem 1.5rem;
+            color: #1a2c3e;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 1.9rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #1e3c72, #2b4f8c);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+        }
+
+        .header p {
+            color: #4a627a;
+            margin-top: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .note-badge {
+            background: #eef2ff;
+            border-left: 4px solid #3b82f6;
+            padding: 0.7rem 1.2rem;
+            border-radius: 1rem;
+            font-size: 0.85rem;
+            color: #1e40af;
+            margin-bottom: 2rem;
+            display: inline-block;
+            max-width: 90%;
+        }
+
+        /* 分类卡片区 */
+        .category-section {
+            margin-bottom: 2.5rem;
+            background: white;
+            border-radius: 1.5rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03), 0 2px 6px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .category-header {
+            padding: 1rem 1.8rem;
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            border-bottom: 2px solid rgba(0, 0, 0, 0.08);
+        }
+
+        .category-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: -0.2px;
+        }
+
+        .category-sub {
+            font-size: 0.8rem;
+            background: rgba(0, 0, 0, 0.05);
+            padding: 0.2rem 0.7rem;
+            border-radius: 30px;
+            color: #2c3e4e;
+        }
+
+        /* 主题色 */
+        .cat-standard .category-header {
+            background: #eaf9ed;
+            border-bottom-color: #2e7d64;
+        }
+        .cat-standard .category-title { color: #1f6e43; }
+
+        .cat-sensitive .category-header {
+            background: #fff4e5;
+            border-bottom-color: #e68a2e;
+        }
+        .cat-sensitive .category-title { color: #c45c1a; }
+
+        .cat-special .category-header {
+            background: #fee9e6;
+            border-bottom-color: #c23d2b;
+        }
+        .cat-special .category-title { color: #b4341f; }
+
+        .cat-forbidden .category-header {
+            background: #fce8e8;
+            border-bottom-color: #b91c1c;
+        }
+        .cat-forbidden .category-title { color: #aa2e2e; }
+
+        /* 表格样式（无代码列） */
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            min-width: 500px;
+        }
+
+        .data-table th {
+            text-align: left;
+            padding: 1rem 1rem 0.8rem 1.5rem;
+            background-color: #f9fafc;
+            font-weight: 600;
+            color: #1f3a4b;
+            border-bottom: 1px solid #e2edf2;
+            font-size: 0.85rem;
+            letter-spacing: 0.3px;
+        }
+
+        .data-table td {
+            padding: 0.85rem 1rem 0.85rem 1.5rem;
+            border-bottom: 1px solid #ecf3f7;
+            vertical-align: top;
+            line-height: 1.4;
+        }
+
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .item-name {
+            font-weight: 500;
+            color: #1e2f3a;
+            width: 30%;
+        }
+
+        .desc-cell {
+            color: #3e5a6b;
+            font-size: 0.85rem;
+        }
+
+        .limit-tag {
+            background: #f1f5f9;
+            border-radius: 20px;
+            padding: 0.2rem 0.6rem;
+            font-size: 0.75rem;
+            display: inline-block;
+            margin-top: 0.2rem;
+            color: #2c4c6c;
+        }
+
+        .footnote {
+            background: #f8fafc;
+            padding: 0.8rem 1.5rem;
+            font-size: 0.75rem;
+            color: #4b6b7e;
+            border-top: 1px solid #e9f0f4;
+        }
+
+        @media (max-width: 680px) {
+            body {
+                padding: 1.2rem;
+            }
+            .category-title {
+                font-size: 1.3rem;
+            }
+            .data-table td, .data-table th {
+                padding-left: 1rem;
+                padding-right: 0.8rem;
+            }
+            .item-name {
+                width: 40%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>📦 国际物流货物分类参考表</h1>
+        <p>普货 · 敏货 · 特货 · 禁止承运 | 基于海关风险及运输规范</p>
+        <div class="note-badge">
+            🔍 海关网品牌备案查询：<a href="http://202.127.48.145:8888/zscq/search/jsp/vBrandSearchIndex.jsp" target="_blank" rel="noopener noreferrer" style="color:#2563eb;">点击查验</a> &nbsp;|&nbsp;
+            ⚡ 敏货超出限定额度自动转入特货线路
+        </div>
+    </div>
+
+    <!-- 1. 普货 -->
+    <div class="category-section cat-standard">
+        <div class="category-header">
+            <span class="category-title">📦 普货</span>
+            <span class="category-sub">常规货物 · 无品牌备案/无电磁/无敏感属性</span>
+        </div>
+        <div class="table-wrapper">
+            <table class="data-table">
+                <thead>
+                    <tr><th>物品类别</th><th>说明 / 条件</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="item-name">衣服</td><td class="desc-cell">海关网未备案品牌，无侵权风险</td></tr>
+                    <tr><td class="item-name">鞋子</td><td class="desc-cell">海关网未备案品牌</td></tr>
+                    <tr><td class="item-name">服饰纺织品</td><td class="desc-cell">围巾、帽子、手套等，无品牌备案限制</td></tr>
+                    <tr><td class="item-name">未带电带磁的电器</td><td class="desc-cell">不含电池/磁铁的小家电，普通电器配件</td></tr>
+                    <tr><td class="item-name">塑料制品</td><td class="desc-cell">日用塑料件，无品牌限制</td></tr>
+                    <tr><td class="item-name">铁制品</td><td class="desc-cell">钢铁类成品，非刀具/武器</td></tr>
+                    <tr><td class="item-name">玻璃制品</td><td class="desc-cell">玻璃杯、摆件等（易碎品需加固包装）</td></tr>
+                    <tr><td class="item-name">陶瓷制品</td><td class="desc-cell">陶瓷碗、花瓶等</td></tr>
+                    <tr><td class="item-name">棉花海绵制品</td><td class="desc-cell">棉被、海绵垫</td></tr>
+                    <tr><td class="item-name">橡胶制品</td><td class="desc-cell">橡胶垫、密封圈等</td></tr>
+                    <tr><td class="item-name">人造板材（非实木）</td><td class="desc-cell">密度板、胶合板制品</td></tr>
+                    <tr><td class="item-name">石头制品</td><td class="desc-cell">石雕、人造石，非文物</td></tr>
+                    <tr><td class="item-name">其他普货</td><td class="desc-cell">未列明且无任何敏感属性的普通货物</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="footnote">✅ 无品牌备案（海关网查询无记录） / 不含电、磁、液体 / 常规日用品类</div>
+    </div>
+
+    <!-- 2. 敏货 -->
+    <div class="category-section cat-sensitive">
+        <div class="category-header">
+            <span class="category-title">⚠️ 敏货</span>
+            <span class="category-sub">限值内可走 · 超出自动转特货线路</span>
+        </div>
+        <div class="table-wrapper">
+            <table class="data-table">
+                <thead>
+                    <tr><th>物品类别</th><th>限制条件 / 说明</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="item-name">带电/带磁/带液体类</td><td class="desc-cell">含常规电池(≤100Wh)、小磁铁、小容量非危液体，商业包装</td></tr>
+                    <tr><td class="item-name">化妆品/护肤品/洗护用品</td><td class="desc-cell">正规商业包装，单票液体/膏体 ≤300ml；粉末≤100g</td></tr>
+                    <tr><td class="item-name">贵重物品、私人物品</td><td class="desc-cell">需保价并提供发票/声明，易碎高价值</td></tr>
+                    <tr><td class="item-name">非肉制品包装食品/调料</td><td class="desc-cell">正规商业包装，不含肉类成分，密封完好</td></tr>
+                    <tr><td class="item-name">干果/干草/草药</td><td class="desc-cell">商业包装，不含违禁植物成分</td></tr>
+                    <tr><td class="item-name">非处方药品</td><td class="desc-cell">原盒带说明书，非精神类/管制药，单票≤3盒</td></tr>
+                    <tr><td class="item-name">正规商业包装液体</td><td class="desc-cell">单票总容量 ≤300ml，非易燃易爆</td></tr>
+                    <tr><td class="item-name">正规商业包装粉末（非白色）</td><td class="desc-cell">单票总重量 ≤100g，非白色粉末</td></tr>
+                    <tr><td class="item-name">正规商业包装膏体/颗粒</td><td class="desc-cell">单票 ≤300ml/300g，常规日化或食品类</td></tr>
+                    <tr><td class="item-name">电器（内置电池）</td><td class="desc-cell">功率≤100Wh/箱，内置合规锂电池，非纯电池</td></tr>
+                    <tr><td class="item-name">厨房刀具</td><td class="desc-cell">刃长≤15cm，无血槽，非管制刀具</td></tr>
+                    <tr><td class="item-name">书籍</td><td class="desc-cell">正规出版物，无政治敏感/反动内容</td></tr>
+                    <tr><td class="item-name">赌博用具</td><td class="desc-cell">扑克、筹码等，非专业赌具（纯娱乐）</td></tr>
+                    <tr><td class="item-name">存储硬盘</td><td class="desc-cell">不含敏感数据、违禁信息，商业用途</td></tr>
+                    <tr><td class="item-name">干燥剂/防腐剂/发热包</td><td class="desc-cell">商业独立包装，非危险化学品</td></tr>
+                    <tr><td class="item-name">已商检原木制品</td><td class="desc-cell">提供商检证明/熏蒸证明，合规木质品</td></tr>
+                    <tr><td class="item-name">其他敏货</td><td class="desc-cell">未列明但符合敏感特征，参照单票限值执行</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="footnote">📌 超限提示：液体＞300ml、粉末＞100g、药品＞3盒需走特货；白色粉末一律禁止承运。</div>
+    </div>
+
+    <!-- 3. 特货 -->
+    <div class="category-section cat-special">
+        <div class="category-header">
+            <span class="category-title">🔻 特货</span>
+            <span class="category-sub">特殊监管 · 需单独线路及审核</span>
+        </div>
+        <div class="table-wrapper">
+            <table class="data-table">
+                <thead>
+                    <tr><th>物品类别</th><th>说明 / 要求</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="item-name">品牌仿牌/侵权产品</td><td class="desc-cell">含HelloKitty、拉布布、迪士尼卡通等海关备案品牌；未在海关网备案除外。高风险查验</td></tr>
+                    <tr><td class="item-name">肉制品（肉类食品）</td><td class="desc-cell">正规商业真空/密封包装，不含鲜肉，需申报</td></tr>
+                    <tr><td class="item-name">超量液体</td><td class="desc-cell">单票超过300ml的合规液体（非危化品）</td></tr>
+                    <tr><td class="item-name">超量粉末（非白色）</td><td class="desc-cell">非白色商业包装粉末超100g，需特货渠道</td></tr>
+                    <tr><td class="item-name">处方类药品</td><td class="desc-cell">需原盒处方、病历，不含精神/麻醉药品</td></tr>
+                    <tr><td class="item-name">其他特货</td><td class="desc-cell">未列明但符合特货监管（超出敏货阈值、品牌风险等）</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="footnote">🚨 特货必须走专门线路，需提供额外申报材料；仿牌货物有没收/罚款风险，请严格核对海关网备案名录。</div>
+    </div>
+
+    <!-- 4. 禁止承运（不走） -->
+    <div class="category-section cat-forbidden">
+        <div class="category-header">
+            <span class="category-title">⛔ 禁止承运</span>
+            <span class="category-sub">任何情况下均不支持 · 法律法规及航空安全违禁品</span>
+        </div>
+        <div class="table-wrapper">
+            <table class="data-table">
+                <thead>
+                    <tr><th>物品类别</th><th>典型举例 / 红线原因</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="item-name">电子烟及其配件</td><td class="desc-cell">烟杆、烟弹、雾化器，含尼古丁及电池风险</td></tr>
+                    <tr><td class="item-name">香烟及烟草制品</td><td class="desc-cell">卷烟、雪茄、烟丝</td></tr>
+                    <tr><td class="item-name">新鲜/活体动植物</td><td class="desc-cell">鲜花、宠物、苗木，检疫风险</td></tr>
+                    <tr><td class="item-name">大米/大豆类</td><td class="desc-cell">粮食类，国家管制</td></tr>
+                    <tr><td class="item-name">种子类</td><td class="desc-cell">任何植物种子</td></tr>
+                    <tr><td class="item-name">标本</td><td class="desc-cell">动物/植物/昆虫标本</td></tr>
+                    <tr><td class="item-name">鲜土</td><td class="desc-cell">土壤、泥土，含病菌生物</td></tr>
+                    <tr><td class="item-name">充电宝/锂电池纯电池</td><td class="desc-cell">独立锂电池、充电宝、超功率电池组</td></tr>
+                    <tr><td class="item-name">超功率电器</td><td class="desc-cell">＞100Wh/箱的大功率设备、大型蓄电池电器</td></tr>
+                    <tr><td class="item-name">白色粉末</td><td class="desc-cell">任何白色粉末（毒品、化学试剂、不明物）</td></tr>
+                    <tr><td class="item-name">非商业包装粉末/膏体</td><td class="desc-cell">散装、自封袋、无标识粉末膏体</td></tr>
+                    <tr><td class="item-name">非商业包装药品</td><td class="desc-cell">无原盒、无说明书、散装药片</td></tr>
+                    <tr><td class="item-name">精神类药/国家管制药品</td><td class="desc-cell">麻醉药品、精神药物、致幻剂等</td></tr>
+                    <tr><td class="item-name">非商业包装液体</td><td class="desc-cell">敞口、易漏、无正规标签液体</td></tr>
+                    <tr><td class="item-name">含酒精易燃液体</td><td class="desc-cell">花露水、指甲油、香水、胶水、酒精等</td></tr>
+                    <tr><td class="item-name">乒乓球</td><td class="desc-cell">赛璐珞材质易燃</td></tr>
+                    <tr><td class="item-name">自热食品</td><td class="desc-cell">自热火锅、自热米饭（含发热包）</td></tr>
+                    <tr><td class="item-name">喷雾气压罐</td><td class="desc-cell">发胶、空气清新剂、瓦斯罐</td></tr>
+                    <tr><td class="item-name">易燃易爆品</td><td class="desc-cell">汽油、火药、鞭炮、雷管</td></tr>
+                    <tr><td class="item-name">化工品</td><td class="desc-cell">工业化学品、腐蚀性原料</td></tr>
+                    <tr><td class="item-name">放射/腐蚀/毒性物质</td><td class="desc-cell">铀、强酸、氰化物、农药</td></tr>
+                    <tr><td class="item-name">刃长＞15cm刀具</td><td class="desc-cell">包括未开刃玩具刀、户外刀、匕首</td></tr>
+                    <tr><td class="item-name">玩具枪/弓箭/枪支弹药</td><td class="desc-cell">仿真枪、弩、子弹、枪支配件</td></tr>
+                    <tr><td class="item-name">商业合同等重要文件</td><td class="desc-cell">具有法律效力的原件、印章文件</td></tr>
+                    <tr><td class="item-name">金银现金货币古董</td><td class="desc-cell">贵金属、现钞、文物、古玩</td></tr>
+                    <tr><td class="item-name">无商检原木制品</td><td class="desc-cell">未经检疫熏蒸的原木、木方</td></tr>
+                    <tr><td class="item-name">其他法律法规违禁品</td><td class="desc-cell">毒品、象牙、走私物品、违禁出版物等</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="footnote">🛑 以上物品严禁揽收，违反可能承担法律责任；白色粉末、纯电池、管制药品等绝对禁止。</div>
+    </div>
+
+    <div style="text-align: center; margin-top: 2rem; font-size: 0.75rem; color: #6b8e9e; border-top: 1px solid #dce7ef; padding-top: 1.2rem;">
+        🧾 分类依据：海关总署品牌备案数据库及国际航空运输协会(IATA)限制规范 | 仅供参考，实际以最新法规为准<br>
+        注：超出敏货阈值的货物自动划入特货；品牌以海关网查询结果为准，未备案则按普货/敏货处理。
+    </div>
+</div>
+</body>
+</html>
